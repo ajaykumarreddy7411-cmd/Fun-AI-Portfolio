@@ -61,7 +61,10 @@ export const About: React.FC = () => {
         <span className="text-yellow-400">Available commands:</span> <br/>
         - Type <span className="text-fuchsia-400">skills</span> to view technical proficiencies<br/>
         - Type <span className="text-fuchsia-400">projects</span> to view portfolio (Locked)<br/>
-        - Type <span className="text-fuchsia-400">contact</span> to view communication channels
+        - Type <span className="text-fuchsia-400">contact</span> to view communication channels<br/><br/>
+        <div className="text-cyan-400 border-t border-cyan-800 pt-2 text-center mt-2">
+          [SYSTEM MESSAGE] Enjoying the challenges? Type <span className="text-yellow-400 font-bold">'test system_design'</span> to play!
+        </div>
       </div>
     </div>
   );

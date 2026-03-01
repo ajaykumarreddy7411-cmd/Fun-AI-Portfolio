@@ -25,7 +25,7 @@ interface PortfolioState {
   challengeStep: number;
   sdQuestionIndex: number; // Added to track which question was asked
   unlockedProjects: boolean;
-  unlockedContact: boolean;
+  unlockedAbout: boolean;
   commandHistory: string[];
   achievements: string[];
   completeBoot: () => void;
@@ -34,7 +34,7 @@ interface PortfolioState {
   setChallengeStep: (step: number) => void;
   setSdQuestionIndex: (index: number) => void;
   unlockProjects: () => void;
-  unlockContact: () => void;
+  unlockAbout: () => void;
   addCommandToHistory: (command: string) => void;
   addAchievement: (id: string) => void;
 }
@@ -48,7 +48,7 @@ export const usePortfolioStore = create<PortfolioState>()(
       challengeStep: 0,
       sdQuestionIndex: -1,
       unlockedProjects: false,
-      unlockedContact: false,
+      unlockedAbout: false,
       commandHistory: [],
       achievements: [],
       completeBoot: () => set({ isBooting: false }),
@@ -57,7 +57,7 @@ export const usePortfolioStore = create<PortfolioState>()(
       setChallengeStep: (step) => set({ challengeStep: step }),
       setSdQuestionIndex: (index) => set({ sdQuestionIndex: index }),
       unlockProjects: () => set({ unlockedProjects: true }),
-      unlockContact: () => set({ unlockedContact: true }),
+      unlockAbout: () => set({ unlockedAbout: true }),
       addCommandToHistory: (command) =>
         set((state) => ({
           commandHistory: [...state.commandHistory, command].slice(-100),
@@ -75,7 +75,7 @@ export const usePortfolioStore = create<PortfolioState>()(
       partialize: (state) => ({
         theme: state.theme,
         unlockedProjects: state.unlockedProjects,
-        unlockedContact: state.unlockedContact,
+        unlockedAbout: state.unlockedAbout,
         commandHistory: state.commandHistory,
         achievements: state.achievements,
       }),

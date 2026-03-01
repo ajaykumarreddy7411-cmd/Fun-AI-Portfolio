@@ -30,7 +30,7 @@ export const Terminal: React.FC = () => {
     activeChallenge, 
     setActiveChallenge, 
     unlockProjects, 
-    unlockContact, 
+    unlockAbout, 
     achievements, 
     addAchievement 
   } = usePortfolioStore();
@@ -104,7 +104,7 @@ export const Terminal: React.FC = () => {
       activeChallenge,
       setActiveChallenge,
       unlockProjects,
-      unlockContact,
+      unlockAbout,
       achievements,
       addAchievement
     );

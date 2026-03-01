@@ -19,7 +19,7 @@ export const processCommand = (
   activeChallenge: string,
   setActiveChallenge: (c: any) => void,
   unlockProjects: () => void,
-  unlockContact: () => void,
+  unlockAbout: () => void,
   achievements: string[],
   addAchievement: (id: string) => void
 ) => {
@@ -44,7 +44,7 @@ export const processCommand = (
   }
 
   if (activeChallenge === 'system_design') {
-    output = validateSystemDesignChallenge(input, unlockContact, setActiveChallenge, addAchievement);
+    output = validateSystemDesignChallenge(input, unlockAbout, setActiveChallenge, addAchievement);
     pushLines([{ id: generateId(), content: output }]);
     return;
   }
@@ -57,7 +57,7 @@ export const processCommand = (
           <div>-------------------</div>
           <div className="grid grid-cols-2 gap-2 max-w-md mt-2">
             <div><span className="text-fuchsia-400">help</span> - Show this message</div>
-            <div><span className="text-fuchsia-400">about</span> - About Ajay Kumar</div>
+            <div><span className="text-fuchsia-400">about</span> - About Ajay Kumar (Locked)</div>
             <div><span className="text-fuchsia-400">skills</span> - View tech stack</div>
             <div><span className="text-fuchsia-400">projects</span> - View projects (Locked)</div>
             <div><span className="text-fuchsia-400">contact</span> - Contact info</div>
@@ -81,7 +81,12 @@ export const processCommand = (
       return; // Do not push new lines
 
     case 'about':
-      output = <About />;
+      const isAboutUnlocked = usePortfolioStore.getState().unlockedAbout;
+      if (!isAboutUnlocked) {
+         output = <div className="text-red-500">SECURITY PROTOCOL ACTIVATED. Type 'unlock about' to proceed.</div>;
+      } else {
+         output = <About />;
+      }
       break;
 
     case 'skills':
@@ -128,13 +133,11 @@ export const processCommand = (
       if (args[0] === 'projects') {
         output = startDSAChallenge();
         setActiveChallenge('dsa');
-      } else if (args[0] === 'contact') {
-        output = "Contact section is already unlocked! But if you want to test your system design skills, type 'test system_design'.";
-      } else if (args[0] === 'system_design') {
+      } else if (args[0] === 'about' || args[0] === 'system_design') {
         output = startSystemDesignChallenge();
         setActiveChallenge('system_design');
       } else {
-        output = `Usage: ${command} [projects|system_design]`;
+        output = `Usage: ${command} [projects|about|system_design]`;
       }
       break;
 

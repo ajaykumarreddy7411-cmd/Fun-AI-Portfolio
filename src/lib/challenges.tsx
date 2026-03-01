@@ -164,7 +164,7 @@ export const startSystemDesignChallenge = (): React.ReactNode => {
 
 export const validateSystemDesignChallenge = (
   input: string,
-  unlockContact: () => void,
+  unlockAbout: () => void,
   setActiveChallenge: (c: any) => void,
   addAchievement: (id: string) => void
 ): React.ReactNode => {
@@ -189,12 +189,12 @@ export const validateSystemDesignChallenge = (
   setActiveChallenge('none');
 
   if (isCorrect) {
-    unlockContact();
+    unlockAbout();
     addAchievement('system_architect');
     return (
       <div className="text-[#00ff00] font-bold">
-        [IMPRESSIVE] Your architectural thinking is sound. ACCESS GRANTED to Contact section.
-        <br/>Type 'contact' to view.
+        [IMPRESSIVE] Your architectural thinking is sound. ACCESS GRANTED to About section.
+        <br/>Type 'about' to view.
       </div>
     );
   } else {
@@ -203,7 +203,7 @@ export const validateSystemDesignChallenge = (
         [INSUFFICIENT] Need more specific architectural concepts. <br/>
         HINT: {hint}
         <br/><br/>
-        Type 'unlock contact' to generate a new scenario and try again.
+        Type 'unlock about' to generate a new scenario and try again.
       </div>
     );
   }
