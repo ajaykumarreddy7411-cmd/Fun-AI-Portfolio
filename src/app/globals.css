@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-matrix: #00ff00;
+  --color-cyberpunk-accent: #00f0ff;
+  --color-cyberpunk-bg: #0a0015;
+  --color-hacker-bg: #000000;
+  --color-hacker-text: #00ff00;
+  --color-error: #ff0000;
+  --color-warning: #ffff00;
+  --color-terminal-text: #00ff00;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-flicker: flicker 0.15s infinite;
+  --animate-glitch: glitch 2s linear infinite;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.95; }
+    50% { opacity: 0.85; }
+    100% { opacity: 0.95; }
+  }
+
+  @keyframes glitch {
+    2%, 64% { transform: translate(2px, 0) skew(0deg); }
+    4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+    62% { transform: translate(0, 0) skew(5deg); }
   }
 }
 
+:root {
+  --primary-color: #00ff00;
+  --bg-color: #000000;
+  --text-glow: 0 0 5px rgba(0, 255, 0, 0.4);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Custom scrollbar for terminal */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
 }
