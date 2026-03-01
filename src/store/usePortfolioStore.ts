@@ -23,6 +23,7 @@ interface PortfolioState {
   theme: Theme;
   activeChallenge: ActiveChallenge;
   challengeStep: number;
+  sdQuestionIndex: number; // Added to track which question was asked
   unlockedProjects: boolean;
   unlockedContact: boolean;
   commandHistory: string[];
@@ -31,6 +32,7 @@ interface PortfolioState {
   setTheme: (theme: Theme) => void;
   setActiveChallenge: (challenge: ActiveChallenge) => void;
   setChallengeStep: (step: number) => void;
+  setSdQuestionIndex: (index: number) => void;
   unlockProjects: () => void;
   unlockContact: () => void;
   addCommandToHistory: (command: string) => void;
@@ -44,14 +46,16 @@ export const usePortfolioStore = create<PortfolioState>()(
       theme: 'matrix',
       activeChallenge: 'none',
       challengeStep: 0,
+      sdQuestionIndex: -1,
       unlockedProjects: false,
       unlockedContact: false,
       commandHistory: [],
       achievements: [],
       completeBoot: () => set({ isBooting: false }),
       setTheme: (theme) => set({ theme }),
-      setActiveChallenge: (challenge) => set({ activeChallenge: challenge, challengeStep: 0 }),
+      setActiveChallenge: (challenge) => set({ activeChallenge: challenge, challengeStep: 0, sdQuestionIndex: -1 }),
       setChallengeStep: (step) => set({ challengeStep: step }),
+      setSdQuestionIndex: (index) => set({ sdQuestionIndex: index }),
       unlockProjects: () => set({ unlockedProjects: true }),
       unlockContact: () => set({ unlockedContact: true }),
       addCommandToHistory: (command) =>

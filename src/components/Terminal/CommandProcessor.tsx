@@ -60,7 +60,7 @@ export const processCommand = (
             <div><span className="text-fuchsia-400">about</span> - About Ajay Kumar</div>
             <div><span className="text-fuchsia-400">skills</span> - View tech stack</div>
             <div><span className="text-fuchsia-400">projects</span> - View projects (Locked)</div>
-            <div><span className="text-fuchsia-400">contact</span> - Contact info (Locked)</div>
+            <div><span className="text-fuchsia-400">contact</span> - Contact info</div>
             <div><span className="text-fuchsia-400">clear</span> - Clear terminal</div>
             <div><span className="text-fuchsia-400">theme</span> - Toggle theme (matrix/hacker)</div>
           </div>
@@ -120,23 +120,21 @@ export const processCommand = (
       break;
 
     case 'contact':
-      const isContactUnlocked = usePortfolioStore.getState().unlockedContact;
-      if (!isContactUnlocked) {
-         output = <div className="text-red-500">SECURITY PROTOCOL ACTIVATED. Type 'unlock contact' to proceed.</div>;
-      } else {
-         output = <Contact />;
-      }
+      output = <Contact />;
       break;
 
     case 'unlock':
+    case 'test': // Added so you can re-test challenges anytime!
       if (args[0] === 'projects') {
         output = startDSAChallenge();
         setActiveChallenge('dsa');
       } else if (args[0] === 'contact') {
+        output = "Contact section is already unlocked! But if you want to test your system design skills, type 'test system_design'.";
+      } else if (args[0] === 'system_design') {
         output = startSystemDesignChallenge();
         setActiveChallenge('system_design');
       } else {
-        output = "Usage: unlock [projects|contact]";
+        output = `Usage: ${command} [projects|system_design]`;
       }
       break;
 
@@ -156,7 +154,7 @@ export const processCommand = (
       break;
 
     case 'hack':
-      output = "Initiating cyber attack... Just kidding! This is a portfolio, not Mr. Robot 🤖\nTry unlocking sections using: 'unlock projects' or 'unlock contact'";
+      output = "Initiating cyber attack... Just kidding! This is a portfolio, not Mr. Robot 🤖\nTry unlocking sections using: 'unlock projects' or 'test system_design'";
       addAchievement('easter_egg');
       break;
 

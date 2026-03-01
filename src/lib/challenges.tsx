@@ -1,4 +1,5 @@
 import React from 'react';
+import { usePortfolioStore } from '@/store/usePortfolioStore';
 
 // DSA CHALLENGE
 export const DSA_QUESTIONS = [
@@ -146,8 +147,11 @@ export const SD_QUESTIONS = [
 ];
 
 export const startSystemDesignChallenge = (): React.ReactNode => {
+  const { setSdQuestionIndex } = usePortfolioStore.getState();
   const qIndex = Math.floor(Math.random() * SD_QUESTIONS.length);
   const q = SD_QUESTIONS[qIndex];
+  
+  setSdQuestionIndex(qIndex);
   
   return (
     <div className="text-yellow-400">
@@ -164,13 +168,23 @@ export const validateSystemDesignChallenge = (
   setActiveChallenge: (c: any) => void,
   addAchievement: (id: string) => void
 ): React.ReactNode => {
-  const lowerInput = input.toLowerCase();
+  const { sdQuestionIndex } = usePortfolioStore.getState();
+  const lowerInput = input.trim().toLowerCase();
   
-  // Checking if the input contains at least one keyword from ANY question
-  // In a real app we'd map the question index to state, but this is a fun conceptual hack
-  const isCorrect = SD_QUESTIONS.some(q => 
-    q.keywords.some(kw => lowerInput.includes(kw))
-  );
+  let isCorrect = false;
+  let hint = "Consider things like Cache, Load Balancers, etc.";
+  
+  if (sdQuestionIndex >= 0 && sdQuestionIndex < SD_QUESTIONS.length) {
+    const q = SD_QUESTIONS[sdQuestionIndex];
+    isCorrect = q.keywords.some(kw => lowerInput.includes(kw));
+    // Provide the first keyword as a hint if they fail
+    hint = `You need to mention concepts like: '${q.keywords.join("', '")}'`;
+  } else {
+    // Fallback if state is lost
+    isCorrect = SD_QUESTIONS.some(q => 
+      q.keywords.some(kw => lowerInput.includes(kw))
+    );
+  }
 
   setActiveChallenge('none');
 
@@ -186,8 +200,10 @@ export const validateSystemDesignChallenge = (
   } else {
     return (
       <div className="text-red-500 font-bold">
-        [INSUFFICIENT] Need more specific architectural concepts. HINT: Consider things like Cache, Load Balancers, etc.
-        <br/>Type 'unlock contact' to try again.
+        [INSUFFICIENT] Need more specific architectural concepts. <br/>
+        HINT: {hint}
+        <br/><br/>
+        Type 'unlock contact' to generate a new scenario and try again.
       </div>
     );
   }

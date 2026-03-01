@@ -28,8 +28,11 @@ export const Contact: React.FC = () => {
           </a>
         </div>
       </div>
-      <div className="text-gray-400 border-t border-cyan-500/30 pt-4">
+      <div className="text-gray-400 border-t border-cyan-500/30 pt-4 pb-2">
         [SYSTEM MESSAGE] Communication channels open and monitored.
+      </div>
+      <div className="mt-1 text-sm text-cyan-400 opacity-80 border-t border-cyan-800 pt-2 text-center">
+        [SYSTEM MESSAGE] Enjoying the challenges? Type <span className="text-yellow-400 font-bold">'unlock contact'</span> to play again!
       </div>
     </div>
   );

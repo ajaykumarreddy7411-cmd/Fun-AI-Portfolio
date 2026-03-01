@@ -98,6 +98,9 @@ export const Projects: React.FC = () => {
           </div>
         ))}
       </div>
+      <div className="mt-4 text-sm text-cyan-400 opacity-80 border-t border-cyan-800 pt-2 text-center">
+        [SYSTEM MESSAGE] Enjoying the challenges? Type <span className="text-yellow-400 font-bold">'unlock projects'</span> to play again!
+      </div>
     </div>
   );
 };
